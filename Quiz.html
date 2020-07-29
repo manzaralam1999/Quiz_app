@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!--TOp section-->
+    <div class="intro text-center py-4">
+        <div class="container my-4">
+            <h1 class="text-primary display-4 py-4">The General Knowledge Quiz</h1>
+        </div>
+        <div class="clock display-4 text-primary">
+
+        </div>
+    </div>
+    
+
+    <!-- Result -->
+    <div class="result py-4 d-none text-center">
+        <div class="lead container">
+            <p> You are <span id ='res' class="display-3  p-3 text-primary"></span> Intelligent</p>
+        </div>
+    </div>
+    <!-- Quiz Section -->
+        <div class="quiz bg-primary py-4">
+            <div class="container">
+                <h2 class="text-white my-5">On with the Questions</h2>
+                <form class="quiz-form text-light">
+                    <div class="my-4">
+                        <p class="font-weight-normal lead">1. Capital Of Pakistan</p>
+                        <div class="form-check my-2 text-white-50">
+                                <input type="radio" name="q1" id="q1a" value="A" checked>
+                                <label for="q1a" class="form-check-label">Karachi</label>
+                        </div>
+                        <div class="form-check my-2 text-white-50">
+                                <input type="radio" name="q1" id="q1b" value="B">
+                                <label for="q1b" class="form-check-label">Islamabad</label>
+                        </div>
+                    </div>
+
+                    <div class="my-4">
+                            <p class="font-weight-normal lead">2. City Of Light</p>
+                            <div class="form-check my-2 text-white-50">
+                                    <input type="radio" name="q2" id="q2a" value="A" checked>
+                                    <label  for="q2a" class="form-check-label">Faislabad</label>
+                            </div>
+                            <div class="form-check my-2 text-white-50">
+                                    <input type="radio" name="q2" id="q2b" value="B">
+                                    <label for="q2b" class="form-check-label">Karachi</label>
+                            </div>
+                    </div>
+
+                    <div class="my-4">
+                                <p class="font-weight-normal lead">3. Gwadar Port is constructed in the province of?</p>
+                                <div class="form-check my-2 text-white-50">
+                                        <input type="radio" name="q3" id="q3a" value="A" checked>
+                                        <label for="q3a" class="form-check-label">Sindh</label>
+                                </div>
+                                <div class="form-check my-2 text-white-50">
+                                        <input type="radio" name="q3" id="q3b" value="B">
+                                        <label  for="q3b" class="form-check-label">Balochistan</label>
+                                </div>
+                    </div>
+
+                    <div class="my-4">
+                            <p class="font-weight-normal lead">4. Who was Mohammad Ali Bogra</p>
+                            <div class="form-check my-2 text-white-50">
+                                    <input type="radio" name="q4" id="q4a" value="A" checked>
+                                    <label  for="q4a" class="form-check-label">Law Minister</label>
+                            </div>
+                            <div class="form-check my-2 text-white-50">
+                                    <input type="radio" id="q4b" name="q4" value="B">
+                                    <label  for="q4b" class="form-check-label">Prime Minister</label>
+                            </div>
+                    </div>
+                    <input type="submit" class="btn btn-light">
+                </form>
+            </div>
+            
+        </div>
+</body>
+<script>
+    const correctAnswers = ['B','B','B','B'];
+    const form = document.querySelector('.quiz-form');
+    const result = document.querySelector('.result');
+    
+    form.addEventListener('submit',e=>{
+        let score = 0;
+        e.preventDefault();
+        const useranswer = [form.q1.value,form.q2.value,form.q3.value,form.q4.value];
+        correctAnswers.forEach((answer,index)=>{
+            if(answer === useranswer[index])
+            {
+            score += 25;
+            }
+        });
+        console.log(score);
+        scrollTo(0,0);
+        result.classList.remove('d-none');
+     let output = 0;
+        const timer = setInterval(()=>{
+            result.querySelector('span').textContent = `${output} %`;
+            if(output === score)
+            {
+                clearInterval(timer);
+            }
+            else{
+                output++;
+            }
+        },10);
+    });
+
+
+
+
+    //Digital Clock
+    const clock = document.querySelector('.clock');
+
+      const tick = ()=>{
+         //let today = new Date().toLocaleDateString()
+          const now = new Date();
+          let h = now.getHours() % 12 ;
+          h = h? h: 12;
+          const m = now.getMinutes();
+          const s = now.getSeconds();
+           const html = `<span> ${h} </span> :
+                         <span> ${m} </span> :
+                         <span> ${s} </span> `;
+           clock.innerHTML = html;              
+      }
+    setInterval(tick,1000);
+</script>
+</html>
